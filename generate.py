@@ -19,8 +19,6 @@ if __name__ == "__main__":
         if item['delay']['type'] is not None:
             delays.append(item)
     
-    print delays[0]
-    
     html_output = index_template.render({
         'delays': delays,
     })

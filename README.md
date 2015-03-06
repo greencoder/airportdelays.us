@@ -1,5 +1,5 @@
 # airportdelays.us
-Python code to generate airportdelays.us site
+Python code to generate (http://airportdelays.us) site
 
 ## Usage
 

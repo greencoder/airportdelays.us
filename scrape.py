@@ -35,8 +35,12 @@ if __name__ == "__main__":
         print " - %s" % map_url
 
         # Request the URL and turn it into soup
-        map_request = requests.get(map_url)
-        soup = BeautifulSoup.BeautifulSoup(map_request.text)
+        try:
+            map_request = requests.get(map_url, timeout=20)
+            soup = BeautifulSoup.BeautifulSoup(map_request.text)
+        except requests.Timeout:
+            print "Connection timed out."
+            continue
 
         # Find the <dl class="map"> element
         dl_el = soup.find('dl', {'class': 'map'})
@@ -100,13 +104,21 @@ if __name__ == "__main__":
                 
                 print "Found a delay, requesting extended information for airport %s" % airport_code
                 
-                detail_url = "http://services.faa.gov/airport/status/%s?format=application/json" % airport_code
-                detail_request = requests.get(detail_url)
-                detail_data = detail_request.json()
+                try:
+                    detail_url = "http://services.faa.gov/airport/status/%s?format=application/json" % airport_code
+                    detail_request = requests.get(detail_url, timeout=20)
+                    detail_data = detail_request.json()
+                except requests.Timeout:
+                    print "Request for information timed out."
+                    detail_data = {}
                 
-                if detail_data['status']['type'] is not None:
+                # If it times out, we just put "Unknown"
+                if detail_data.keys() and detail_data['status']['type'] is not None:
                     delay['details'] = detail_data['status']
                     delay['type'] = detail_data['status']['type']
+                else:
+                    delay['details'] = {}
+                    delay['type'] = "Unknown"
 
             airports.append({
                 'iata-code': airport_code,
