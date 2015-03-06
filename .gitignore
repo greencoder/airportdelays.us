@@ -52,3 +52,6 @@ docs/_build/
 
 # PyBuilder
 target/
+
+delays.json
+index.html
