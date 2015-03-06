@@ -130,5 +130,11 @@ if __name__ == "__main__":
                 'status-url': airport_status_url,
             })
 
+        # Craft the JSON output
+        output = {
+            'generated': arrow.utcnow().isoformat(),
+            'airports': airports
+        }
+
         with open('delays.json', 'w') as f:
-            f.write(json.dumps(airports, indent=4))
+            f.write(json.dumps(output, indent=4))

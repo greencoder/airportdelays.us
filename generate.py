@@ -1,3 +1,4 @@
+import arrow
 import jinja2
 import json
 
@@ -11,16 +12,21 @@ if __name__ == "__main__":
     # Load the delays
     with open('delays.json', 'r') as f:
         data = json.loads(f.read())
+    
+    # Turn the generated time into Eastern
+    generated_at_dt = arrow.get(data['generated']).to('US/Eastern')
+    generated_at = generated_at_dt.format('M/d/YYYY HH:mm:ss') + ' ET'
         
     # Write the template
     delays = []
     
-    for item in data:
+    for item in data['airports']:
         if item['delay']['type'] is not None:
             delays.append(item)
     
     html_output = index_template.render({
         'delays': delays,
+        'generated_at': generated_at,
     })
     
     with open('index.html', 'w') as f:
