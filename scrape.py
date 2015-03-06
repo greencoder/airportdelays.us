@@ -1,3 +1,4 @@
+import arrow
 import BeautifulSoup
 import json
 import requests
@@ -25,21 +26,22 @@ if __name__ == "__main__":
     ]
 
     airports = []
+    now = arrow.utcnow().isoformat()
 
     for source in sources:
 
         name = source[0]
         map_url = source[1]
 
-        print "Processing Delays for Region: %s" % name
-        print " - %s" % map_url
+        print "%s\tProcessing Delays for Region: %s" % (now, name)
+        print "%s\t - %s" % (now, map_url)
 
         # Request the URL and turn it into soup
         try:
             map_request = requests.get(map_url, timeout=20)
             soup = BeautifulSoup.BeautifulSoup(map_request.text)
         except requests.Timeout:
-            print "Connection timed out."
+            print "%s\tConnection timed out." % now
             continue
 
         # Find the <dl class="map"> element
@@ -94,7 +96,7 @@ if __name__ == "__main__":
                 airport_location_metadata['altitude'] = metadata['altitude']
                 airport_location_metadata['city'] = metadata['city']
             except KeyError:
-                print "Missing Metadata for Airport Code: %s" % airport_code
+                print "%s\tMissing Metadata for Airport Code: %s" % (now, airport_code)
 
             # By default, an airport has no delay
             delay = { 'type': None, 'details': None }
@@ -102,14 +104,14 @@ if __name__ == "__main__":
             # If we find a non-normal delay, then we need to request additional info
             if airport_delay_text != "General Arrival/Departure delays are 15 minutes or less.":
                 
-                print "Found a delay, requesting extended information for airport %s" % airport_code
+                print "%s\tFound a delay, requesting extended information for airport %s" % (now, airport_code)
                 
                 try:
                     detail_url = "http://services.faa.gov/airport/status/%s?format=application/json" % airport_code
                     detail_request = requests.get(detail_url, timeout=20)
                     detail_data = detail_request.json()
                 except requests.Timeout:
-                    print "Request for information timed out."
+                    print "%s\tRequest for information timed out." % now
                     detail_data = {}
                 
                 # If it times out, we just put "Unknown"
