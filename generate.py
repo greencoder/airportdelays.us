@@ -15,7 +15,7 @@ if __name__ == "__main__":
     
     # Turn the generated time into Eastern
     generated_at_dt = arrow.get(data['generated']).to('US/Eastern')
-    generated_at = generated_at_dt.format('M/d/YYYY HH:mm:ss') + ' ET'
+    generated_at = generated_at_dt.format('M/d/YYYY HH:mm:ssa') + ' ET'
         
     # Write the template
     delays = []
