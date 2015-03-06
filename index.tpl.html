@@ -1,6 +1,7 @@
 <table border="1" cellpadding="5" cellspacing="0">
     <tr bgcolor="#EFEFEF">
         <th>Airport</th>
+        <th>IATA</th>
         <th>Delay Type</th>
         <th>Reason</th>
         <th>Until</th>
@@ -8,6 +9,7 @@
 {% for delay in delays %}
     <tr>
         <td>{{ delay['name'] }}</td>
+        <td>{{ delay['iata-code'] }}</td>
         <td>{{ delay['delay']['details']['type'] }}</td>
         <td>{{ delay['delay']['details']['reason'] }}</td>
         <td>{{ delay['delay']['details']['endTime'] }}</td>
