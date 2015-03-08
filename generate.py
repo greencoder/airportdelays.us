@@ -32,11 +32,18 @@ if __name__ == "__main__":
             else:
                 details = "N/A"
             
+            # Shorten the airport name if possible
+            if 'International' in item['name']:
+                name = item['name'].replace("International", "Intl")
+            else:
+                name = item['name']
+            
             delays.append({
-                'airport': "%s (%s)" % (item['name'], item['iata-code']),
+                'airport': "%s (%s)" % (name, item['iata-code']),
                 'delay_type': item['delay']['details']['type'],
                 'delay_reason': item['delay']['details']['reason'],
                 'details': details,
+                'link': item['status-url'],
             })
 
     # Write the template

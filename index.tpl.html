@@ -27,7 +27,7 @@
 
         <tbody>
             {% for delay in delays %}
-            <tr>
+            <tr onclick="javascript:self.location.href='{{ delay.link }}';">
                 <td>{{ delay.airport }}</td>
                 <td>{{ delay.delay_type }}</td>
                 <td>{{ delay.delay_reason }}</td>
