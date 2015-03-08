@@ -19,7 +19,6 @@
         <thead>
             <tr>
                 <th>Airport</th>
-                <th>IATA</th>
                 <th>Delay Type</th>
                 <th>Reason</th>
                 <th>Details</th>
@@ -29,8 +28,7 @@
         <tbody>
             {% for delay in delays %}
             <tr>
-                <td>{{ delay.airport_name }}</td>
-                <td>{{ delay.airport_code }}</td>
+                <td>{{ delay.airport }}</td>
                 <td>{{ delay.delay_type }}</td>
                 <td>{{ delay.delay_reason }}</td>
                 <td>{{ delay.details }}</td>

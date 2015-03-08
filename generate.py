@@ -33,8 +33,7 @@ if __name__ == "__main__":
                 details = "N/A"
             
             delays.append({
-                'airport_name': item['name'],
-                'airport_code': item['iata-code'],
+                'airport': "%s (%s)" % (item['name'], item['iata-code']),
                 'delay_type': item['delay']['details']['type'],
                 'delay_reason': item['delay']['details']['reason'],
                 'details': details,
