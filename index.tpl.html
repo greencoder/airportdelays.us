@@ -1,21 +1,51 @@
-<table border="1" cellpadding="5" cellspacing="0">
-    <tr bgcolor="#EFEFEF">
-        <th>Airport</th>
-        <th>IATA</th>
-        <th>Delay Type</th>
-        <th>Reason</th>
-        <th>Until</th>
-    </tr>
-{% for delay in delays %}
-    <tr>
-        <td>{{ delay['name'] }}</td>
-        <td>{{ delay['iata-code'] }}</td>
-        <td>{{ delay['delay']['details']['type'] }}</td>
-        <td>{{ delay['delay']['details']['reason'] }}</td>
-        <td>{{ delay['delay']['details']['endTime'] }}</td>
-    </tr>
-{% endfor %}
-</table>
+<!DOCTYPE html>
+<html lang="en">
 
-<p>Generated at {{ generated_at }}</p>
-        
+<head>
+
+<link href='http://fonts.googleapis.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
+<link href='styles.css' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body>
+
+    <div class="header">
+        <h1><img src="airport_icon.png" height="45" align="absmiddle" />&nbsp;US Airport Delays</h1>
+    </div>
+
+    <table border="0" cellpadding="0" cellspacing="10" width="100%">
+
+        <thead>
+            <tr>
+                <th>Airport</th>
+                <th>IATA</th>
+                <th>Delay Type</th>
+                <th>Reason</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for delay in delays %}
+            <tr>
+                <td>{{ delay.airport_name }}</td>
+                <td>{{ delay.airport_code }}</td>
+                <td>{{ delay.delay_type }}</td>
+                <td>{{ delay.delay_reason }}</td>
+                <td>{{ delay.details }}</td>
+            </tr>
+            {% endfor %}
+            {% if not delays %}
+            <tr>
+                <td colspan="5">No reported delays</td>
+            </tr>
+            {% endif %}
+         </tbody>
+
+     </table>
+
+     <div class="footer">Last Updated at {{ generated_at }}</div>
+
+</body>
+</html>
