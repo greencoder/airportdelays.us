@@ -36,11 +36,11 @@ table {
     border: 2px solid #000;
     padding: 12px;
     font-family: 'Ticker', sans-serif;
+    zbackground-image: url('row_bg_dots.png');
 }
 
 tbody > tr {
     height: 48px;
-    background-image: url('row_bg_dots.png');
     border-bottom: 2px solid #000;
     color: #FFFF66;
 }
