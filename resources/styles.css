@@ -36,7 +36,7 @@ table {
     border: 2px solid #000;
     padding: 12px;
     font-family: 'Ticker', sans-serif;
-    zbackground-image: url('row_bg_dots.png');
+    background-image: url('row_bg_dots.png');
 }
 
 tbody > tr {
